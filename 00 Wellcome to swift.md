@@ -1,5 +1,5 @@
 
-<h1>Свифт Тур</h1>
+<h1>Swift Тур</h1>
 
 Традиционно первая программа на новом языке должна печатать слова "Hello, world!" На экране. 
 В Swift это можно сделать в одну строку:
@@ -648,10 +648,257 @@ Switches поддерживают любые данные и широкий сп
             
   ЭКСПЕРИМЕНТ Добавьте третий случай к ServerResponse и к switch.          
             
+  Обратите внимание, как времена восхода и заката извлекаются из значения ServerResponse как часть 
+  сопоставления значения switch cases.
+
+Используйте struct для создания структуры. Структуры поддерживают многие из тех же поведений, 
+что и классы, включая методы и инициализаторы. 
+Одним из наиболее важных различий между структурами и классами является то, 
+что структуры всегда копируются, когда они передаются в вашем коде, а классы передаются по ссылке.          
             
             
+                struct Card {
+                var rank: Rank
+                var suit: Suit
+                func simpleDescription() -> String {
+                    return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
+                }
+            }
+            let threeOfSpades = Card(rank: .three, suit: .spades)
+            let threeOfSpadesDescription = threeOfSpades.simpleDescription()
             
 
+        ЭКСПЕРИМЕНТ Напишите функцию, которая возвращает массив, содержащий полную колоду карт, 
+        с одной картой каждой комбинации ранга и масти.
+
+<h2>Протоколы и расширения</h2>
+
+Используйте protocol, чтобы объявить протокол.
+
+            protocol ExampleProtocol {
+                var simpleDescription: String { get }
+                mutating func adjust()
+            }
+
+Классы, перечисления и структуры могут принимать протоколы.
+
+                class SimpleClass: ExampleProtocol {
+                    var simpleDescription: String = "A very simple class."
+                    var anotherProperty: Int = 69105
+                    func adjust() {
+                        simpleDescription += "  Now 100% adjusted."
+                    }
+                }
+                var a = SimpleClass()
+                a.adjust()
+                let aDescription = a.simpleDescription
+
+                struct SimpleStructure: ExampleProtocol {
+                    var simpleDescription: String = "A simple structure"
+                    mutating func adjust() {
+                        simpleDescription += " (adjusted)"
+                    }
+                }
+                var b = SimpleStructure()
+                b.adjust()
+                let bDescription = b.simpleDescription
+
+
+        ЭКСПЕРИМЕНТ Добавьте еще одно требование к ExampleProtocol. 
+        Какие изменения необходимо внести в SimpleClass и SimpleStructure, чтобы они по-прежнему соответствовали протоколу?
+
+
+Обратите внимание на использование ключевого слова mutating в объявлении SimpleStructure для обозначения метода, 
+который изменяет структуру.
+Объявление SimpleClass не нуждается ни в одном из его методов, помеченных как мутирующие, 
+потому что методы класса всегда могут изменить класс.
+
+
+Используйте extension, чтобы добавить функциональность к существующему типу, например, новые методы и вычисляемые свойства.
+
+                extension Int: ExampleProtocol {
+                    var simpleDescription: String {
+                        return "The number \(self)"
+                    }
+                    mutating func adjust() {
+                        self += 42
+                    }
+                }
+                print(7.simpleDescription)
+                // Prints "The number 7"
+
+
+        ЭКСПЕРИМЕНТ Напишите расширение для типа Double, которое добавляет свойство absoluteValue.
+
+Вы можете использовать имя протокола, как и любой другой именованный тип, например, 
+для создания коллекции объектов, которые имеют разные типы, но все они соответствуют одному протоколу. 
+При работе со значениями, тип которых является типом протокола, методы вне определения протокола недоступны.
+
+            let protocolValue: ExampleProtocol = a
+            print(protocolValue.simpleDescription)
+            // Prints "A very simple class.  Now 100% adjusted."
+            // print(protocolValue.anotherProperty)  // Uncomment to see the error
+
+Даже если переменная protocolValue имеет тип времени выполнения SimpleClass, 
+компилятор обрабатывает его как заданный тип ExampleProtocol.
+
+Это означает, что вы не можете случайно получить доступ к методам или свойствам, 
+которые реализует класс в дополнение к его соответствию протоколу.
+
+<h2>Обработка ошибок</h2>
+
+Вы представляете ошибки, используя любой тип, который принимает протокол ошибок /Error protocol.
+
+
+            enum PrinterError: Error {
+                case outOfPaper
+                case noToner
+                case onFire
+            }
+
+
+Используйте throw, чтобы вызвать ошибку, и throw, чтобы отметить функцию, которая может выбросить ошибку.
+Если вы посылаете в функцию  ошибку, функция немедленно возвращается, и код, вызвавший функцию, обрабатывает ошибку.
+
+
+            func send(job: Int, toPrinter printerName: String) throws -> String {
+                if printerName == "Never Has Toner" {
+                    throw PrinterError.noToner
+                }
+                return "Job sent"
+            }
+
+
+Есть несколько способов обработки ошибок. Одним из способов является использование do-catch. 
+Внутри блока do вы помечаете код, который может выдать ошибку, написав try перед ним.
+
+Внутри блока catch ошибке автоматически присваивается имя error, если вы не дадите ему другое имя.
+
+                do {
+                    let printerResponse = try send(job: 1040, toPrinter: "Bi Sheng")
+                    print(printerResponse)
+                } catch {
+                    print(error)
+                }
+                // Prints "Job sent"
+
+        ЭКСПЕРИМЕНТ Измените имя принтера на «Never Has Toner», чтобы функция send (job: toPrinter :) выдавала ошибку.
+
+Вы можете предоставить несколько блоков catch, которые обрабатывают определенные ошибки. 
+Вы пишете шаблон после перехвата, как вы делаете после case в switch.
+
+            do {
+                let printerResponse = try send(job: 1440, toPrinter: "Gutenberg")
+                print(printerResponse)
+            } catch PrinterError.onFire {
+                print("I'll just put this over here, with the rest of the fire.")
+            } catch let printerError as PrinterError {
+                print("Printer error: \(printerError).")
+            } catch {
+                print(error)
+            }
+            // Prints "Job sent"
+
+    ЭКСПЕРИМЕНТ Добавьте код, чтобы выдать ошибку внутри блока do. 
+    Какую ошибку вы должны выбросить, чтобы ошибка была обработана первым блоком catch? 
+    Как насчет второго и третьего блоков?
+
+
+Еще один способ обработки ошибок - использовать try? преобразовать результат в необязательный. 
+Если функция выдает ошибку, конкретная ошибка отбрасывается, и результат равен nil.
+
+В противном случае результатом является необязательный параметр, содержащий значение, возвращаемое функцией.
+
+
+        let printerSuccess = try? send(job: 1884, toPrinter: "Mergenthaler")
+        let printerFailure = try? send(job: 1885, toPrinter: "Never Has Toner")
+        
+Используйте defer, чтобы написать блок кода, который выполняется после всего остального кода в функции, 
+непосредственно перед возвратом функции.        
+        
+Код выполняется независимо от того, выдает ли функция ошибку. 
+Вы можете использовать defer для написания кода установки и очистки рядом друг с другом, 
+даже если они должны выполняться в разное время.       
+        
+                var fridgeIsOpen = false
+                let fridgeContent = ["milk", "eggs", "leftovers"]
+
+                func fridgeContains(_ food: String) -> Bool {
+                    fridgeIsOpen = true
+                    defer {
+                        fridgeIsOpen = false
+                    }
+
+                    let result = fridgeContent.contains(food)
+                    return result
+                }
+                fridgeContains("banana")
+                print(fridgeIsOpen)
+                // Prints "false"        
+        
+<h2>Обобщения</h2>
+
+Напишите имя в угловых скобках, чтобы сделать общую функцию или тип.
+        
+        
+            func makeArray<Item>(repeating item: Item, numberOfTimes: Int) -> [Item] {
+                var result = [Item]()
+                for _ in 0..<numberOfTimes {
+                    result.append(item)
+                }
+                return result
+            }
+            makeArray(repeating: "knock", numberOfTimes: 4)        
+
+Вы можете создавать общие формы функций и методов, а также классы, перечисления и структуры.
+        
+        
+        // Reimplement the Swift standard library's optional type
+        enum OptionalValue<Wrapped> {
+            case none
+            case some(Wrapped)
+        }
+        var possibleInteger: OptionalValue<Int> = .none
+        possibleInteger = .some(100)  
+        
+ Используйте where непосредственно перед телом, чтобы указать список запросов - 
+ например, чтобы запросить тип для осуществления протокола, чтобы два типа были одинаковыми, 
+ или чтобы у класса был определенный суперкласс.       
+        
+        
+         func anyCommonElements<T: Sequence, U: Sequence>(_ lhs: T, _ rhs: U) -> Bool
+            where T.Element: Equatable, T.Element == U.Element
+        {
+            for lhsItem in lhs {
+                for rhsItem in rhs {
+                    if lhsItem == rhsItem {
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+        anyCommonElements([1, 2, 3], [3])     
+        
+        
+        
+ ЭКСПЕРИМЕНТ Измените функцию anyCommonElements (_: _ :), чтобы создать функцию, которая возвращает массив элементов, 
+ общих для любых двух последовательностей.       
+        
+     Запись   <T: Equatable>  эквивалентна <T> ... где T: Equatable.
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
 
 
