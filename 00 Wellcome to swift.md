@@ -1,3 +1,4 @@
+<a href="https://github.com/Anna-Myzukina/swift-book-ru"><<< назад</a>
 
 <h1>O Swift</h1>
 
@@ -949,7 +950,7 @@ Switches поддерживают любые данные и широкий сп
         
         
         
-        
+                                              <a href="https://github.com/Anna-Myzukina/swift-book-ru"><<< назад</a>
         
         
         
