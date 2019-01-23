@@ -950,7 +950,7 @@ Switches поддерживают любые данные и широкий сп
         
         
         
-                                              <a href="https://github.com/Anna-Myzukina/swift-book-ru"><<< назад</a>
+   <a href="https://github.com/Anna-Myzukina/swift-book-ru"><<< назад</a>
         
         
         
