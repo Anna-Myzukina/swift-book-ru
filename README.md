@@ -4,7 +4,7 @@ https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html <br>
 Перевод на русский документации по языку программирования swift  / версия swift 4.2 <br>
 
 
-ДОБРО ПОЖАЛОВАТЬ В SWIFT <br>
+<a href="https://github.com/Anna-Myzukina/swift-book-ru/blob/master/00%20Wellcome%20to%20swift.md">ДОБРО ПОЖАЛОВАТЬ В SWIFT <a/><br>
 РУКОВОДСТВО ПО ЯЗЫКУ <br>
 <a href="https://github.com/Anna-Myzukina/swift-book-ru/blob/master/01%20The%20Basics.md"><b>Основы</b></a> <br>
 Basic Operators <br>
