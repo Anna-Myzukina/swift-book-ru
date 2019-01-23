@@ -1,37 +1,36 @@
 # swift-book-ru
-https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html
+https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html <br>
 
-Перевод на русский / the swift programming language / swift 4.2
+Перевод на русский документации по языку программирования swift  / версия swift 4.2 <br>
 
-"Язык программирования SWIFT"
-версия swift 4.2
-ДОБРО ПОЖАЛОВАТЬ В SWIFT
-РУКОВОДСТВО ПО ЯЗЫКУ
-Основы
-Basic Operators
-Strings and Characters
-Collection Types
-Control Flow
-Functions
-Closures
-Enumerations
-Structures and Classes
-Properties
-Methods
-Subscripts
-Inheritance
-Initialization
-Deinitialization
-Optional Chaining
-Error Handling
-Type Casting
-Nested Types
-Extensions
-Protocols
-Generics
-Automatic Reference Counting
-Memory Safety
-Access Control
-Advanced Operators
-LANGUAGE REFERENCE
-REVISION HISTORY
+"Язык программирования SWIFT" <br>
+ДОБРО ПОЖАЛОВАТЬ В SWIFT <br>
+РУКОВОДСТВО ПО ЯЗЫКУ <br>
+Основы <br>
+Basic Operators <br>
+Strings and Characters <br>
+Collection Types <br>
+Control Flow <br>
+Functions <br>
+Closures <br>
+Enumerations <br>
+Structures and Classes <br>
+Properties <br>
+Methods <br>
+Subscripts <br>
+Inheritance <br>
+Initialization <br>
+Deinitialization <br>
+Optional Chaining <br>
+Error Handling <br>
+Type Casting <br>
+Nested Types <br>
+Extensions <br>
+Protocols <br>
+Generics <br>
+Automatic Reference Counting <br>
+Memory Safety <br>
+Access Control <br>
+Advanced Operators <br>
+LANGUAGE REFERENCE <br>
+REVISION HISTORY <br>
